@@ -1,0 +1,88 @@
+:root {
+    --header-height: 3.5rem;
+    --nav-width: 219px;
+  
+    /*========== Colors ==========*/
+    --first-color: #608BC1;
+    --first-color-light: #ffffff;
+    --title-color: #1B1A17;
+    --text-color: #352525;
+    --text-color-light: #133E87;
+    --body-color: #f1f5f7;
+    --container-color: #CBDCEB;
+    --card-color: #F3F3E0;
+  
+    /*========== Font and typography ==========*/
+    --body-font: 'Poppins', sans-serif;
+    --large-font-size: .1200rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .75rem;
+    --smaller-font-size: .75rem;
+  
+    /*========== Font weight ==========*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+  
+    /*========== z index ==========*/
+    --z-fixed: 100;
+  }
+
+.text-prior {
+    color: var(--text-color-light);
+}
+
+.btn-prior {
+    background-color: var(--text-color-light);
+    color: var(--first-color-light);
+    padding: 17px;
+    border-radius: 30px;
+    font-weight: bolder;
+}
+
+.btn-prior:hover {
+    background-color: var(--text-color-light);
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.btn-search {
+    background-color: var(--first-color);
+    color: var(--first-color-light);
+    padding: 15px;
+}
+
+.btn-search:hover {
+    background-color: var(--first-color);
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.border-search {
+    border: 22px 22px solid #608BC1;
+}
+
+.btn-edit {
+    background-color: #608BC1;
+    border: 2px solid #608BC1;
+    padding: 8px;
+    color: white;
+    border-radius: 10px;
+}
+
+.btn-edit:hover {
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.btn-delete {
+    background-color: #b64f4f;
+    border: 2px solid #b64f4f;
+    padding: 8px;
+    color: white;
+    border-radius: 10px;
+}
+
+.btn-delete:hover {
+    opacity: 0.9;
+    transition: 0.3s;
+}
