@@ -14,7 +14,7 @@ class Student extends Model
         'rombel_id',
         'rayon_id',
     ];
-
+    
     protected $casts = [
         'rombel_id' => 'array',
         'rayon_id' => 'array'

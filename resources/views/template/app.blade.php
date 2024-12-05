@@ -66,9 +66,9 @@
                                 </div>
                             </div>
 
-                            <a href="#" class="nav__link">
+                            <a href="{{ route('late.index') }}" class="nav__link">
                                 <i class='bx bx-message-rounded nav__icon' ></i>
-                                <span class="nav__name">Messages</span>
+                                <span class="nav__name">Keterlambatan</span>
                             </a>
                         </div>
     

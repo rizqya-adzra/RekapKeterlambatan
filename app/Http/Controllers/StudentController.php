@@ -52,10 +52,12 @@ class StudentController extends Controller
         $rayonFormat = Rayon::find($key);
 
         $afterRombel = [
+            "id" => $key,
             "name_rombel" => $rombelFormat['rombel'],
         ];
 
         $afterRayon = [
+            "id" => $key,
             "name_rayon" => $rayonFormat['rayon'],
         ];
         
@@ -114,10 +116,12 @@ class StudentController extends Controller
         $rayonFormat = Rayon::find($key);
 
         $afterRombel = [
+            "id" => $key,
             "name_rombel" => $rombelFormat['rombel'],
         ];
 
         $afterRayon = [
+            "id" => $key,
             "name_rayon" => $rayonFormat['rayon'],
         ];
         

@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Late extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'student_id', 'date_time_late', 'information', 'bukti'
+    ];
+
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    protected $casts = [
+        'student_id' => 'array'
+    ];
 }

@@ -12,8 +12,9 @@ class RayonController extends Controller
      */
     public function index(Request $request)
     {
+        $user = User::all();
         $rayon = Rayon::where('rayon', 'LIKE', '%'.$request->search.'%')->with('user')->orderBy('rayon', 'ASC')->simplePaginate(10);
-        return view('admin.rayon.index', compact('rayon'));
+        return view('admin.rayon.index', compact('rayon', 'user'));
     }
 
     /**
@@ -28,7 +29,7 @@ class RayonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
         $request->validate ([
             'rayon' => 'required',
@@ -40,6 +41,7 @@ class RayonController extends Controller
         $detailFormat = User::find($key);
 
         $rayonFormat = [
+            "id" => $key,
             "name_user" => $detailFormat['name']
         ];
 
@@ -51,7 +53,7 @@ class RayonController extends Controller
         if($rayon) {
             return redirect()->route('rayon.index')->with('success', 'Data berhasil ditambahkan!');
         } else {
-            return redirect()->back()->with('failed', 'Data gagal di edit');
+            return redirect()->back()->with('failed', 'Data gagal di ditambahkan');
         }
     }
 
@@ -68,7 +70,9 @@ class RayonController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::all();
+        $rayon = Rayon::find($id);
+        return view('admin.rayon.edit', compact('rayon', 'user'));
     }
 
     /**
@@ -76,7 +80,30 @@ class RayonController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate ([
+            'rayon' => 'required',
+            'user' => 'required'
+        ]);
+
+        $user = $request->user;
+        foreach($user as $key)
+        $detailFormat = User::find($key);
+
+        $rayonFormat = [
+            "id" => $key,
+            "name_user" => $detailFormat['name']
+        ];
+
+        $rayon = Rayon::where('id', $id)->update([
+            'rayon' => $request->rayon,
+            'user' => $rayonFormat,
+        ]);
+
+        if($rayon) {
+            return redirect()->route('rayon.index')->with('success', 'Data berhasil Diedit!');
+        } else {
+            return redirect()->back()->with('failed', 'Data gagal di edit');
+        }
     }
 
     /**

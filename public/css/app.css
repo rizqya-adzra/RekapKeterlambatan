@@ -86,3 +86,44 @@
     opacity: 0.9;
     transition: 0.3s;
 }
+
+.card {
+    background-color: #fff; /* Warna latar kartu */
+    border: 1px solid #133E87; /* Border dengan aksen */
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s; /* Animasi */
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    justify-content: start; /* Ikon di kiri dan teks di kanan */
+    padding: 1.5rem; /* Jarak konten dalam kartu */
+}
+
+.icon-container {
+    flex-shrink: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #e8f0fc; 
+}
+
+.text-container {
+    flex-grow: 1; /* Membiarkan teks menggunakan ruang yang tersisa */
+}
+
+.text-container h3 {
+    margin: 0;
+    color: #133E87;
+    font-weight: bold;
+}
+
+.text-container span {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+}

@@ -3,7 +3,10 @@
 @section('konten-dinamis')
 <section class="container mt-2" style="width: 80%">
     <div class="d-flex justify-content-around align-items-center mb-4">
-        <h1 class="text-prior">Tambah Data Akun</h1>
+        <div>
+            <h1 class="text-prior">Tambha Data Rombel</h1>
+            <small><a href=" {{ route('rombel.index') }} ">> rombel</a><a href="#"> > create</a></small>
+        </div>
         <a class="btn btn-outline-secondary p-2" href="{{ route('rombel.index') }}"><i class="fa fa-arrow-left"
             aria-hidden="true"></i> Back</a>
     </div>

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lates', function (Blueprint $table) {
             $table->id();
+            $table->string('student_id');
             $table->dateTime('date_time_late');
             $table->text('information');
             $table->text('bukti');

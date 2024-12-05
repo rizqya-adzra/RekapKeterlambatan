@@ -1,19 +1,21 @@
 @extends('template.app', ['title' => 'Data Akun || Rekap Keterlambatan'])
 
 @section('konten-dinamis')
-    <section class="container mt-2" style="width: 80%">
+    <section class="container" style="width: 80%">
         <div class="d-flex justify-content-around align-items-center mb-4">
-            <h1 class="text-prior">Data Akun</h1>
+            <div>
+                <h1 class="text-prior">Data Akun</h1>
+                <small><a href="">> user</a></small>
+            </div>
             <div class="d-flex" style="gap: 20px">
                 <form action="" class="d-flex" style="gap: 7px">
                     <input class="form-control border-search " type="text" placeholder="cari berdasarkan nama"
                         name="search" aria-label="Search">
-                    <button class="btn btn-search" type="submit"><i class="fa fa-search"
-                            aria-hidden="true"></i></button>
+                    <button class="btn btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <button class="btn btn-outline-secondary" type="submit">Clear</button>
                 </form>
             </div>
-            <a class="btn-prior" href=" {{route('user.create')}} ">Tambah +</a>
+            <a class="btn-prior" href=" {{ route('user.create') }} ">Tambah +</a>
         </div>
         @if (Session::get('success'))
             <div class="alert alert-success"> {{ Session::get('success') }} </div>
@@ -30,16 +32,17 @@
             </thead>
             <tbody>
                 @foreach ($user as $index => $item)
-                <tr>
-                    <td> {{$index + 1}} </td>
-                    <td> {{ $item['name'] }} </td>
-                    <td> {{ $item['email'] }} </td>
-                    <td> {{ $item['role'] }} </td>
-                    <td>
-                        <a class="btn-edit" href="{{ route('user.edit', ['id' => $item->id])}}">Edit</a>
-                        <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->name }}')">Hapus</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td> {{ ($user->currentPage() - 1) * $user->perPage() + ($index + 1) }} </td>
+                        <td> {{ $item['name'] }} </td>
+                        <td> {{ $item['email'] }} </td>
+                        <td> {{ $item['role'] }} </td>
+                        <td>
+                            <a class="btn-edit" href="{{ route('user.edit', ['id' => $item->id]) }}">Edit</a>
+                            <button class="btn-delete"
+                                onclick="deleteModal('{{ $item->id }}', '{{ $item->name }}')">Hapus</button>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -51,8 +54,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus data Akun</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             apakah anda yakin akan menghapus data Akun <span id="nama-akun"
@@ -65,6 +67,11 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="mb-5">
+            @if ($user->count())
+                {{ $user->links() }}
+            @endif
         </div>
     </section>
 @endsection

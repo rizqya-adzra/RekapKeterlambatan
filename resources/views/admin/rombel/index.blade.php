@@ -1,9 +1,12 @@
 @extends('template.app', ['title' => 'Data Rombel || Rekap Keterlambatan'])
 
 @section('konten-dinamis')
-    <section class="container mt-2" style="width: 80%">
+    <section class="container" style="width: 80%">
         <div class="d-flex justify-content-around align-items-center mb-4">
-            <h1 class="text-prior">Data Rombel</h1>
+            <div>
+                <h1 class="text-prior">Data Rombel</h1>
+                <small><a href=" # ">> rombel</a></small>
+            </div>
             <div class="d-flex" style="gap: 20px">
                 <form action="" class="d-flex" style="gap: 7px">
                     <input class="form-control border-search " type="text" placeholder="cari berdasarkan nama"
@@ -28,7 +31,7 @@
             <tbody>
                 @foreach ($rombel as $index => $item)
                     <tr>
-                        <td> {{ $index + 1 }} </td>
+                        <td> {{ ($rombel->currentPage() - 1) * $rombel->perPage() + ($index + 1) }} </td>
                         <td> {{ $item['rombel'] }} </td>
                         <td>
                             <button class="btn-edit"
@@ -86,6 +89,11 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="mb-5">
+            @if ($rombel->count())
+                {{ $rombel->links() }}
+            @endif
         </div>
     </section>
 @endsection

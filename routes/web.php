@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RayonController;
 use App\Http\Controllers\RombelController;
@@ -18,9 +20,7 @@ use App\Models\Student;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('/rombel')->name('rombel.')->group(function(){
     Route::get('/', [RombelController::class, 'index'])->name('index');
@@ -35,6 +35,8 @@ Route::prefix('/rayon')->name('rayon.')->group(function() {
     Route::get('/', [RayonController::class, 'index'])->name('index');
     Route::get('/create', [RayonController::class, 'create'])->name('create');
     Route::post('/store', [RayonController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [RayonController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [RayonController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [RayonController::class, 'destroy'])->name('delete');
 });
 
@@ -54,4 +56,10 @@ Route::prefix('/student')->name('student.')->group(function() {
     Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
     Route::patch('/update/{id}', [StudentController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('/late')->name('late.')->group(function() {
+    Route::get('/', [LateController::class, 'index'])->name('index');
+    Route::get('/create', [LateController::class, 'create'])->name('create');
+    Route::post('/store', [LateController::class, 'store'])->name('store');
 });

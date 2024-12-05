@@ -1,9 +1,12 @@
 @extends('template.app', ['title' => 'Data Siswa || Rekap Keterlambatan'])
 
 @section('konten-dinamis')
-<section class="container mt-2" style="width: 80%">
+<section class="container" style="width: 80%">
     <div class="d-flex justify-content-around align-items-center mb-4">
-        <h1 class="text-prior">Data Siswa</h1>
+        <div>
+            <h1 class="text-prior">Data Siswa</h1>
+            <small><a href=" # ">> student</a></small>
+        </div>
         <div class="d-flex" style="gap: 20px">
             <form action="" class="d-flex" style="gap: 7px">
                 <input class="form-control border-search" type="text" placeholder="cari berdasarkan nama"
@@ -32,7 +35,7 @@
             <tbody>
                 @foreach ($student as $index => $item)
                 <tr>
-                    <td> {{ $index + 1}} </td>
+                    <td> {{ ($student->currentPage() - 1) * $student->perPage() + ($index + 1) }} </td>
                     <td> {{ $item['nis'] }} </td>
                     <td> {{ $item['name'] }} </td>
                     <td> {{ implode($item['rombel_id']) }} </td>
@@ -67,6 +70,11 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="mb-5">
+            @if ($student->count())
+                {{ $student->links() }}
+            @endif
         </div>
 </section>
 @endsection

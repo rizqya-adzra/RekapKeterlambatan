@@ -1,9 +1,12 @@
 @extends('template.app', ['title' => 'Data Rayon || Rekap Keterlambatan'])
 
 @section('konten-dinamis')
-<section class="container mt-2" style="width: 80%">
+<section class="container" style="width: 80%">
     <div class="d-flex justify-content-around align-items-center mb-4">
-        <h1 class="text-prior">Data Rayon</h1>
+        <div>
+            <h1 class="text-prior">Data Rayon</h1>
+            <small><a href=" #">> user</a></small>
+        </div>
         <div class="d-flex" style="gap: 20px">
             <form action="" class="d-flex" style="gap: 7px">
                 <input class="form-control border-search" type="text" placeholder="cari berdasarkan rayon"
@@ -30,11 +33,11 @@
             <tbody>
                 @foreach ($rayon as $index => $item)
                 <tr>
-                    <td> {{$index + 1}} </td>
+                    <td> {{ ($rayon->currentPage() - 1) * $rayon->perPage() + ($index + 1) }} </td>
                     <td> {{ $item['rayon'] }} </td>
                     <td> {{ implode($item['user']) }} </td>
                     <td>
-                        <button class="btn-edit" onclick="editModal('{{ $item->id }}', '{{ $item->rombel }}')">Edit</button>
+                        <a class="btn-edit" href="{{ route('rayon.edit', $item->id) }}">Edit</a>
                         <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->rombel }}')">Hapus</button>
                     </td>
                 </tr>
@@ -63,6 +66,11 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="mb-5">
+            @if ($rayon->count())
+                {{ $rayon->links() }}
+            @endif
         </div>
     </section>
 @endsection

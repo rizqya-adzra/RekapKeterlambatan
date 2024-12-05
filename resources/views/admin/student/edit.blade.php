@@ -3,7 +3,10 @@
 @section('konten-dinamis')
 <section class="container mt-2" style="width: 80%">
     <div class="d-flex justify-content-around align-items-center mb-4">
-        <h1 class="text-prior">Edit Data Siswa</h1>
+        <div>
+            <h1 class="text-prior">Edit Data Siswa</h1>
+            <small><a href=" {{ route('student.index') }} ">> student</a><a href="#"> > edit</a></small>
+        </div>
         <a class="btn btn-outline-secondary p-2" href="{{ route('student.index') }}"><i class="fa fa-arrow-left"
                 aria-hidden="true"></i> Back</a>
     </div>
@@ -47,7 +50,7 @@
                 <select class="form-select" name="rayon_id[]" id="rayon_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rayon as $item)
-                        <option value=" {{ $item['id']  }} "> {{ $item['rayon'] }} </option>
+                        <option value=" {{ $item['id']  }} " {{ old('rayon', $student['id']) == $item->id ? 'selected' : '' }}> {{ $item['rayon'] }} </option>
                     @endforeach
                 </select>
             </div>
