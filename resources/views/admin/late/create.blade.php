@@ -20,26 +20,53 @@
             @csrf
             <div class="form-group">
                 <label class="form-label" for="">Nama Siswa</label>
-                <select class="form-select" name="student[]" id="student">
+                <select class="form-select" name="student" id="student">
                     <option selected disabled hidden value=""></option>
                     @foreach ($student as $item)
-                        <option value=" {{ $item['id'] }} "> {{ $item['name'] }} </option>
+                        <option value=" {{ $item->id }} "> {{ $item['name'] }} </option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label" for="">Tanggal</label>
+                <label class="form-label mt-3" for="">Tanggal</label>
                 <input class="form-control" type="datetime-local" name="date_time_late">
             </div>
             <div class="form-group">
-                <label class="form-label" for="">Keterangan Keterlambatan</label>
+                <label class="form-label mt-3" for="">Keterangan Keterlambatan</label>
                 <input class="form-control" type="text" name="information">
             </div>
             <div class="form-group">
-                <label class="form-label" for="">Bukti</label>
-                <input class="form-control" type="file" name="bukti">
+                <label class="form-label mt-3" for="">Bukti</label>
+                <input class="form-control" type="file" name="bukti" id="bukti"
+                    style="border-left: 13px solid #608BC1 ">
+                <div class="mt-3">
+                    <img id="img-preview" src="" alt="Pratinjau Gambar"
+                        style="display: none; max-width: 200px; max-height: 200px; border: 1px solid #ccc; padding: 5px;">
+                </div>
             </div>
             <button class="btn-prior mt-3" type="submit">Kirim</button>
         </form>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        document.getElementById('bukti').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('img-preview');
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+@endpush

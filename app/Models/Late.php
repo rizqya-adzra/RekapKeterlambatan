@@ -10,16 +10,15 @@ class Late extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id', 'date_time_late', 'information', 'bukti'
+        'student_id',
+        'date_time_late',
+        'information',
+        'bukti'
     ];
 
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
-
-    protected $casts = [
-        'student_id' => 'array'
-    ];
 }

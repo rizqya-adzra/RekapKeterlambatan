@@ -9,11 +9,7 @@ class Rayon extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'rayon', 'user'
-    ];
-
-    protected $casts = [
-        'user' => 'array'
+        'rayon', 'user_id'
     ];
 
     public function user()
@@ -24,5 +20,10 @@ class Rayon extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function late()
+    {
+        return $this->hasMany(Late::class);
     }
 }

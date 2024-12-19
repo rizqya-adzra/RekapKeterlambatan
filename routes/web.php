@@ -62,4 +62,7 @@ Route::prefix('/late')->name('late.')->group(function() {
     Route::get('/', [LateController::class, 'index'])->name('index');
     Route::get('/create', [LateController::class, 'create'])->name('create');
     Route::post('/store', [LateController::class, 'store'])->name('store');
+    Route::get('/show/{id}', [LateController::class, 'show'])->name('show');
+    Route::delete('/delete/{id}', [LateController::class, 'destroy'])->name('delete');
+    Route::get('/download/{id}', [LateController::class, 'downloadPDF'])->name('download');
 });

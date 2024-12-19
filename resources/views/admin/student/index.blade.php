@@ -37,12 +37,12 @@
                 <tr>
                     <td> {{ ($student->currentPage() - 1) * $student->perPage() + ($index + 1) }} </td>
                     <td> {{ $item['nis'] }} </td>
-                    <td> {{ $item['name'] }} </td>
-                    <td> {{ implode($item['rombel_id']) }} </td>
-                    <td> {{ implode($item['rayon_id']) }} </td>
+                    <td> {{ $item->name }} </td>
+                    <td> {{ $item->rombel->rombel }} </td>
+                    <td> {{ $item->rayon->rayon }} </td>
                     <td>
                         <a class="btn-edit" href="{{ route('student.edit', $item['id']) }}">Edit</a>
-                        <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->rombel }}')">Hapus</button>
+                        <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->name }}')">Hapus</button>
                     </td>
                 </tr>
                 @endforeach
@@ -83,13 +83,13 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        function deleteModal(id, nis) {
+        function deleteModal(id, name) {
             let action = '{{ route('student.delete', ':id') }}';
             action = action.replace(':id', id);
             $('#form-delete-siswa').attr('action', action);
             $('#deleteModal').modal('show');
-            console.log(nis);
-            $('#nama-siswa').text(nis);
+            $('#nama-siswa').text(name); 
         }
     </script>
+        
 @endpush

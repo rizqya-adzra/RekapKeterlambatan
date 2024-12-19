@@ -34,11 +34,11 @@
                 @foreach ($rayon as $index => $item)
                 <tr>
                     <td> {{ ($rayon->currentPage() - 1) * $rayon->perPage() + ($index + 1) }} </td>
-                    <td> {{ $item['rayon'] }} </td>
-                    <td> {{ implode($item['user']) }} </td>
+                    <td> {{ $item->rayon }} </td>
+                    <td> {{ $item->user->name }} </td>
                     <td>
                         <a class="btn-edit" href="{{ route('rayon.edit', $item->id) }}">Edit</a>
-                        <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->rombel }}')">Hapus</button>
+                        <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->rayon }}')">Hapus</button>
                     </td>
                 </tr>
                 @endforeach

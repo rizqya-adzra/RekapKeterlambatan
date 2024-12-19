@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rayons', function (Blueprint $table) {
             $table->id();
             $table->string('rayon');
-            $table->char('user');
+            $table->char('user_id');
             $table->timestamps();
         });
     }

@@ -28,10 +28,10 @@
                 @error('user')
                     <small class="text-danger"> {{ $message }} </small>
                 @enderror
-                <select class="form-select" name="user[]" id="user">
+                <select class="form-select" name="user_id" id="user">
                     <option selected disabled hidden value=""></option>
                     @foreach ($user as $item)
-                        <option value=" {{ $item['id'] }} " {{ (int) old('user', $rayon->user_id['id'] ?? null) == $item->id ? 'selected' : '' }}> {{ $item['name'] }} </option>
+                        <option value=" {{ $item['id'] }} " {{ (int) old('user', $rayon->user->id) == $item->id ? 'selected' : '' }}> {{ $item['name'] }} </option>
                     @endforeach
                 </select>
             </div>

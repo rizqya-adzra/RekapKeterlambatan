@@ -22,7 +22,7 @@ class RayonController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $user = User::where('role', 'ps')->get();
         return view('admin.rayon.create', compact('user'));
     }
 
@@ -33,21 +33,12 @@ class RayonController extends Controller
     {
         $request->validate ([
             'rayon' => 'required',
-            'user' => 'required'
+            'user_id' => 'required'
         ]);
-
-        $user = $request->user;
-        foreach($user as $key)
-        $detailFormat = User::find($key);
-
-        $rayonFormat = [
-            "id" => $key,
-            "name_user" => $detailFormat['name']
-        ];
 
         $rayon = Rayon::create([
             'rayon' => $request->rayon,
-            'user' => $rayonFormat,
+            'user_id' => $request->user_id,
         ]);
 
         if($rayon) {
@@ -70,7 +61,7 @@ class RayonController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::all();
+        $user = User::where('role', 'ps')->get();
         $rayon = Rayon::find($id);
         return view('admin.rayon.edit', compact('rayon', 'user'));
     }
@@ -82,21 +73,12 @@ class RayonController extends Controller
     {
         $request->validate ([
             'rayon' => 'required',
-            'user' => 'required'
+            'user_id' => 'required'
         ]);
-
-        $user = $request->user;
-        foreach($user as $key)
-        $detailFormat = User::find($key);
-
-        $rayonFormat = [
-            "id" => $key,
-            "name_user" => $detailFormat['name']
-        ];
 
         $rayon = Rayon::where('id', $id)->update([
             'rayon' => $request->rayon,
-            'user' => $rayonFormat,
+            'user_id' => $request->user_id,
         ]);
 
         if($rayon) {

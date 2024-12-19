@@ -4,7 +4,11 @@
     <div class="d-flex justify-content-around align-items-center mb-4">
         <div>
             <h1 class="text-prior">Dashboard Admin</h1>
-            <small><a href="">> dasboard</a></small>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+            </nav>
         </div>
         <div class="d-flex align-items-end " style="gap: 15px">
             <div>

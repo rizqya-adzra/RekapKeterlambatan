@@ -15,6 +15,11 @@ class Rombel extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
+    }
+
+    public function late()
+    {
+        return $this->hasMany(Late::class);
     }
 }

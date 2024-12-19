@@ -41,31 +41,12 @@ class StudentController extends Controller
             'rombel_id' => 'required',
             'rayon_id' => 'required',
         ]);
-
-        $rombel = $request->rombel_id;
-        $rayon = $request->rayon_id;
-
-        foreach($rombel as $key)
-        $rombelFormat = Rombel::find($key);
-    
-        foreach($rayon as $key)
-        $rayonFormat = Rayon::find($key);
-
-        $afterRombel = [
-            "id" => $key,
-            "name_rombel" => $rombelFormat['rombel'],
-        ];
-
-        $afterRayon = [
-            "id" => $key,
-            "name_rayon" => $rayonFormat['rayon'],
-        ];
         
         $student = Student::create([
             'nis' => $request->nis,
             'name' => $request->name,
-            'rombel_id' => $afterRombel,
-            'rayon_id' => $afterRayon,
+            'rombel_id' => $request->rombel_id,
+            'rayon_id' => $request->rayon_id,
         ]);
 
         if($student) {

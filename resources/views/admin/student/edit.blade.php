@@ -38,7 +38,7 @@
                 <select class="form-select" name="rombel_id[]" id="rombel_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rombel as $item)
-                        <option value=" {{ $item['id'] }} "> {{ $item['rombel'] }} </option>
+                        <option value=" {{ $item['id'] }} " {{ old('rombel', $student->rombel->id) == $item->id ? 'selected' : '' }}> {{ $item['rombel'] }} </option>
                     @endforeach
                 </select>
             </div>
@@ -50,7 +50,7 @@
                 <select class="form-select" name="rayon_id[]" id="rayon_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rayon as $item)
-                        <option value=" {{ $item['id']  }} " {{ old('rayon', $student['id']) == $item->id ? 'selected' : '' }}> {{ $item['rayon'] }} </option>
+                        <option value=" {{ $item['id']  }} " {{ old('rayon', $student->rayon->id) == $item->id ? 'selected' : '' }}> {{ $item['rayon'] }} </option>
                     @endforeach
                 </select>
             </div>
