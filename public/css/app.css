@@ -64,28 +64,55 @@
 .btn-edit {
     background-color: #608BC1;
     border: 2px solid #608BC1;
-    padding: 8px;
+    padding: 0.5em 1em; /* Gunakan ukuran fleksibel */
     color: white;
     border-radius: 10px;
+    text-align: center;
 }
 
 .btn-edit:hover {
     opacity: 0.9;
-    transition: 0.3s;
+    transition: opacity 0.3s;
 }
 
 .btn-delete {
     background-color: #b64f4f;
     border: 2px solid #b64f4f;
-    padding: 8px;
+    padding: 0.5em 1em; /* Gunakan ukuran fleksibel */
     color: white;
     border-radius: 10px;
+    text-align: center;
 }
 
 .btn-delete:hover {
     opacity: 0.9;
-    transition: 0.3s;
+    transition: opacity 0.3s;
 }
+
+td {
+    white-space: nowrap; /* Hindari teks memotong */
+}
+
+/* Media queries untuk layar kecil */
+@media (max-width: 768px) {
+    .btn-edit,
+    .btn-delete {
+        padding: 0.4em 0.8em; /* Kurangi padding pada layar kecil */
+        font-size: 0.9rem; /* Sesuaikan ukuran font */
+        border-radius: 8px; /* Kurangi border-radius */
+    }
+}
+
+/* Media queries untuk layar sangat kecil */
+@media (max-width: 480px) {
+    .btn-edit,
+    .btn-delete {
+        padding: 0.3em 0.6em; /* Kurangi lebih banyak padding */
+        font-size: 0.8rem; /* Sesuaikan ukuran font lebih kecil */
+        border-radius: 6px; /* Kurangi lebih banyak border-radius */
+    }
+}
+
 
 .card {
     background-color: #fff; /* Warna latar kartu */

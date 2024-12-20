@@ -5,7 +5,12 @@
         <div class="d-flex justify-content-around align-items-center mb-4">
             <div>
                 <h1 class="text-prior">Data Rombel</h1>
-                <small><a href=" # ">> rombel</a></small>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Rombel</li>
+                    </ol>
+                  </nav>
             </div>
             <div class="d-flex" style="gap: 20px">
                 <form action="" class="d-flex" style="gap: 7px">
@@ -17,10 +22,21 @@
             </div>
             <a class="btn-prior" href=" {{ route('rombel.create') }} ">Tambah +</a>
         </div>
+        <form method="GET" action="" class="d-flex align-items-center mb-3" style="gap: 15px">
+            <label for="perPage" class="form-label">Tampilkan</label>
+            <select name="perPage" id="perPage" class="form-select" style="width: auto" onchange="this.form.submit()">
+                <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
+                <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
+                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+            </select>
+            <input type="hidden" name="search" value="{{ request('search') }}">
+        </form>
+        
         @if (Session::get('success'))
             <div class="alert alert-success"> {{ Session::get('success') }} </div>
         @endif
-        <table class="table text-center">
+        <table class="table text-center table-striped">
             <thead>
                 <tr>
                     <th>No</th>
@@ -28,7 +44,7 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-group-divider">
                 @foreach ($rombel as $index => $item)
                     <tr>
                         <td> {{ ($rombel->currentPage() - 1) * $rombel->perPage() + ($index + 1) }} </td>
@@ -90,9 +106,9 @@
                 </form>
             </div>
         </div>
-        <div class="mb-5">
+        <div class="mt-3">
             @if ($rombel->count())
-                {{ $rombel->links() }}
+                {{ $rombel->appends(['perPage' => request('perPage'), 'search' => request('search')])->links() }}
             @endif
         </div>
     </section>
@@ -112,14 +128,12 @@
         }
     </script>
     <script>
-        // Fungsi untuk menampilkan modal edit stok
         function editModal(id, rombel) {
             $('#rombel-id').val(id);
             $('#rombel').val(rombel);
             $('#editModal').modal('show');
         }
 
-        // Event listener untuk submit form update stok
         $('#form-edit-rombel').on('submit', function(e) {
             e.preventDefault();
 
@@ -127,7 +141,6 @@
             let rombel = $('#rombel').val();
             let actionUrl = "{{ url('/rombel/edit') }}/" + id;
 
-            // Kirim request AJAX untuk update stok
             $.ajax({
                 url: actionUrl,
                 type: 'PUT',

@@ -18,9 +18,9 @@
         @foreach ($lates as $index => $late)
             <div class="p-5 shadow-sm" style="background-color: white">
                 <h5>Keterlambatan Ke-{{ $index + 1 }}</h5>
-                <p>{{ \Carbon\Carbon::parse($late->date_time_late)->translatedFormat('d F Y, H:i') }}</p>
-                <p class="text-danger">{{ $late->information }}</p>
-                <img style="width: 200px" src="{{ asset('storage/' . $late['bukti']) }}" alt="Bukti">
+                <td> {{ \Carbon\Carbon::parse($late->date_time_late)->locale('id')->translatedFormat('l, d F Y H:i') }} </td>
+                <p class="text-danger mt-3">{{ $late->information }}</p>
+                <img class="object-fit-fill border rounded" style="width: 200px" src="{{ asset('storage/' . $late['bukti']) }}" alt="Bukti">
             </div>
         @endforeach
     </div>

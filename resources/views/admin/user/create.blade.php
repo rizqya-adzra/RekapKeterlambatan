@@ -5,7 +5,13 @@
         <div class="d-flex justify-content-around align-items-center mb-4">
             <div>
                 <h1 class="text-prior">Tambah Data Akun</h1>
-                <small><a href=" {{ route('user.index') }} ">> user</a><a href="#"> > create</a></small>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                      <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">User</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                  </nav>
             </div>
             <a class="btn btn-outline-secondary p-2" href="{{ route('user.index') }}"><i class="fa fa-arrow-left"
                 aria-hidden="true"></i> Back</a>

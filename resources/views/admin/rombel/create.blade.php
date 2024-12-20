@@ -4,8 +4,14 @@
 <section class="container mt-2" style="width: 80%">
     <div class="d-flex justify-content-around align-items-center mb-4">
         <div>
-            <h1 class="text-prior">Tambha Data Rombel</h1>
-            <small><a href=" {{ route('rombel.index') }} ">> rombel</a><a href="#"> > create</a></small>
+            <h1 class="text-prior">Tambah Data Rombel</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item active"><a href="{{ route('rombel.index') }}">Rombel</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Create</li>
+                </ol>
+              </nav>
         </div>
         <a class="btn btn-outline-secondary p-2" href="{{ route('rombel.index') }}"><i class="fa fa-arrow-left"
             aria-hidden="true"></i> Back</a>

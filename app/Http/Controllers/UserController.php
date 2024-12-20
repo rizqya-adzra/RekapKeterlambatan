@@ -13,9 +13,15 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::where('name', 'LIKE', '%'.$request->search.'%')->orderBy('name', 'ASC')->simplePaginate(10);
-        return view('admin.user.index', compact('user'));
+        $perPage = $request->get('perPage', 5);
+    
+        $search = $request->get('search', ''); 
+    
+        $user = User::where('name', 'LIKE', '%' . $search . '%')->orderBy('name', 'ASC')->paginate($perPage);
+    
+        return view('admin.user.index', compact('user', 'perPage', 'search'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -30,26 +36,36 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'role' => 'required',
-            'password' => 'required',
+            'password' => 'nullable', 
         ]);
-
+    
+        $nameParts = explode(' ', $request->name); 
+        $emailParts = explode('@', $request->email); 
+    
+        $defaultPassword = (isset($nameParts[0]) ? $nameParts[0] : '') .
+                            (isset($nameParts[1]) ? $nameParts[1] : '') .
+                            (isset($nameParts[2]) ? $nameParts[2] : '') .
+                            (isset($emailParts[0]) ? $emailParts[0] : '');
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($defaultPassword),
         ]);
-
+    
         if($user) {
             return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
         } else {
             return redirect()->back()->with('failed', 'User gagal ditambahkan!');
         }
     }
+    
 
     /**
      * Display the specified resource.

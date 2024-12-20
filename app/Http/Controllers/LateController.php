@@ -14,22 +14,32 @@ class LateController extends Controller
      */
     public function index(Request $request)
     {
-        $validatedData = $request->validate([
-            'search' => 'nullable|string|max:255',
-        ]);
-
-        $late = Late::with('student')->orderBy('id', 'ASC')->simplePaginate(10);
-
-        return view('admin.late.index', compact('late'));
+        $perPage = $request->input('perPage', 5);
+        $search = $request->input('search');
+    
+        $late = Late::with('student')
+            ->when($search, function ($query) use ($search) {
+                return $query->whereDate('date_time_late', '=', $search);
+            })
+            ->orderBy('id', 'ASC')
+            ->paginate($perPage)
+            ->appends([
+                'search' => $search,
+                'perPage' => $perPage,
+            ]);
+    
+        return view('admin.late.index', compact('late', 'search', 'perPage'));
     }
-
+    
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $now = now()->timezone('Asia/Jakarta')->format('Y-m-d\TH:i');
         $student = Student::all();
-        return view('admin.late.create', compact('student'));
+        return view('admin.late.create', compact('student', 'now'));
     }
 
     /**

@@ -12,8 +12,12 @@ class RombelController extends Controller
      */
     public function index(Request $request)
     {
-        $rombel = Rombel::where('rombel', 'LIKE', '%'.$request->search.'%')->orderBy('rombel', 'ASC')->simplePaginate(10);
-        return view('admin.rombel.index', compact('rombel')); 
+        $perPage = $request->get('perPage', 5);
+        $search = $request->get('search', ''); 
+
+        $rombel = Rombel::where('rombel', 'LIKE', '%' . $search . '%')->orderBy('rombel', 'ASC')->paginate($perPage);
+
+        return view('admin.rombel.index', compact('rombel'));
     }
 
     /**
@@ -29,18 +33,20 @@ class RombelController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'rombel' => 'required',
-        ],
-    [
-        'rombel.required' => 'Wajib Diisi!'
-    ]);
+        $request->validate(
+            [
+                'rombel' => 'required',
+            ],
+            [
+                'rombel.required' => 'Wajib Diisi!'
+            ]
+        );
 
         $proses = Rombel::create([
             'rombel' => $request->rombel,
-        ]); 
+        ]);
 
-        if($proses) {
+        if ($proses) {
             return redirect()->route('rombel.index')->with('success', 'Data Rombel Berhasil Ditambahkan!');
         } else {
             return redirect()->back()->with('failed', 'Data gagal ditambahkan');
@@ -60,7 +66,7 @@ class RombelController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if(!isset($request->rombel)) {
+        if (!isset($request->rombel)) {
             return response()->json(['failed' => 'Stok tidak boleh kosong'], 400);
         }
 
@@ -75,7 +81,7 @@ class RombelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate ([
+        $request->validate([
             'rombel' => 'required',
         ]);
 
@@ -84,7 +90,7 @@ class RombelController extends Controller
             'rombel' => $request->rombel
         ]);
 
-        if($proses) {
+        if ($proses) {
             return redirect()->back()->with('success', 'Data berhasil di edit');
         } else {
             return redirect()->back()->with('failed', 'Data gagal di edit');
@@ -97,8 +103,8 @@ class RombelController extends Controller
     public function destroy(string $id)
     {
         $rombel = Rombel::where('id', $id)->delete();
-        if($rombel) {
-            return redirect()->back()->with('success' , 'Data berhasil dihapus!');
+        if ($rombel) {
+            return redirect()->back()->with('success', 'Data berhasil dihapus!');
         } else {
             return redirect()->back()->with('failed', 'Data gagal dihapus');
         }

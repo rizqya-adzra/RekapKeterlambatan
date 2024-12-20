@@ -557,4 +557,8 @@ footer {
     text-align: center;
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: #f4f8fd; 
+}
 /* footer */

@@ -14,10 +14,15 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $student = Student::where('name', 'LIKE', '%'.$request->search.'%')->orderBy('name', 'ASC')->simplePaginate(10);
-        return view('admin.student.index', compact('student'));
-
+        $perPage = $request->get('perPage', 5);
+    
+        $search = $request->get('search', ''); 
+    
+        $student = Student::where('name', 'LIKE', '%' . $search . '%')->orderBy('name', 'ASC')->paginate($perPage);
+    
+        return view('admin.student.index', compact('student', 'perPage', 'search'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

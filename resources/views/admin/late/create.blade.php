@@ -5,7 +5,13 @@
         <div class="d-flex justify-content-around align-items-center mb-4">
             <div>
                 <h1 class="text-prior">Tambah Data Keterlambatan</h1>
-                <small><a href=" {{ route('late.index') }} ">> late</a><a href="#"> > create</a></small>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                      <li class="breadcrumb-item active"><a href="{{ route('late.index') }}">Late</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                  </nav>
             </div>
             <a class="btn btn-outline-secondary p-2" href="{{ route('late.index') }}"><i class="fa fa-arrow-left"
                     aria-hidden="true"></i> Back</a>
@@ -29,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label mt-3" for="">Tanggal</label>
-                <input class="form-control" type="datetime-local" name="date_time_late">
+                <input class="form-control" type="datetime-local" name="date_time_late" value="{{ $now }}">
             </div>
             <div class="form-group">
                 <label class="form-label mt-3" for="">Keterangan Keterlambatan</label>

@@ -12,10 +12,17 @@ class RayonController extends Controller
      */
     public function index(Request $request)
     {
+        $perPage = $request->get('perPage', 5);
+    
+        $search = $request->get('search', ''); 
+    
         $user = User::all();
-        $rayon = Rayon::where('rayon', 'LIKE', '%'.$request->search.'%')->with('user')->orderBy('rayon', 'ASC')->simplePaginate(10);
-        return view('admin.rayon.index', compact('rayon', 'user'));
+    
+        $rayon = Rayon::where('rayon', 'LIKE', '%' . $search . '%')->with('user')->orderBy('rayon', 'ASC')->paginate($perPage);
+    
+        return view('admin.rayon.index', compact('rayon', 'user', 'perPage', 'search'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
