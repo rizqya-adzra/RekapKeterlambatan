@@ -8,67 +8,53 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px;
         }
 
-        h1,
-        h2 {
+        h1, h2 {
             text-align: center;
             margin: 0;
-            font-size: 20px;
-            line-height: 1.5;
         }
 
-        .content {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .details {
-            margin-top: 15px;
+        h2 {
             margin-bottom: 20px;
         }
 
         .details table {
             width: 100%;
-            font-size: 14px;
+            margin: 20px 0;
+            border-collapse: collapse;
         }
 
         .details td {
-            padding: 4px 0;
+            padding: 5px 10px;
         }
 
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
+        .content p {
+            text-align: justify;
         }
 
-        .signature {
-            width: 45%;
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .footer-table td {
             text-align: center;
-            font-size: 14px;
-        }
-
-        .signature p {
-            margin: 0;
-            line-height: 1.5;
+            padding: 50px;
+            vertical-align: top;
         }
 
         .signature span {
-            display: block;
-            margin-top: 40px;
-            text-decoration: underline;
-            font-weight: bold;
+            display: inline-block;
+            margin-top: 50px;
         }
     </style>
-
 </head>
 
 <body>
@@ -80,64 +66,57 @@
             <div class="details">
                 <table>
                     <tr>
-                        <td>NIS</td>
+                        <td><strong>NIS</strong></td>
                         <td>: {{ $lates->student->nis }}</td>
                     </tr>
                     <tr>
-                        <td>Nama</td>
+                        <td><strong>Nama</strong></td>
                         <td>: {{ $lates->student->name }}</td>
                     </tr>
                     <tr>
-                        <td>Rombel</td>
+                        <td><strong>Rombel</strong></td>
                         <td>: {{ $lates->student->rombel->rombel }}</td>
                     </tr>
                     <tr>
-                        <td>Rayon</td>
+                        <td><strong>Rayon</strong></td>
                         <td>: {{ $lates->student->rayon->rayon }}</td>
                     </tr>
                 </table>
             </div>
             <p>
                 Dengan ini menyatakan bahwa saya telah melakukan pelanggaran tata tertib sekolah, yaitu terlambat datang
-                ke sekolah sebanyak <b>{{ $lates->count('id') }} kali</b>
+                ke sekolah sebanyak <b>{{ $lates->where('student_id', $lates->student->id)->count() }} kali</b>,
                 yang mana hal tersebut termasuk ke dalam pelanggaran kedisiplinan. Saya berjanji tidak akan terlambat
-                datang ke sekolah lagi. Apabila saya terlambat datang ke sekolah lagi saya siap diberikan sanksi yang
+                datang ke sekolah lagi. Apabila saya terlambat datang ke sekolah lagi, saya siap diberikan sanksi yang
                 sesuai dengan peraturan sekolah.
             </p>
             <p>
                 Demikian surat pernyataan terlambat ini saya buat dengan penuh penyesalan.
             </p>
         </div>
-        <div class="footer1">
-            <div class="signature">
-                <p>{{ \Carbon\Carbon::parse($lates->created_at)->translatedFormat('d F Y, H:i') }}</p>
-                <p>&nbsp;</p>
-                <p>Peserta Didik,</p>
-                <p>&nbsp;</p>
-                <span>( {{ $lates->student->name }} )</span>
-            </div>
-            <div class="signature">
-                <p>&nbsp;</p>
-                <p>Orang Tua/Wali Peserta Didik,</p>
-                <p>&nbsp;</p>
-                <span>(...........................)</span>
-            </div>
-        </div>
-        <div class="footer2">
-            <div class="signature">
-                <p>&nbsp;</p>
-                <p>Pembimbing Siswa,</p>
-                <p>&nbsp;</p>
-                <span>( {{ $lates->student->rayon->user->name }} )</span>
-            </div>
-            <div class="signature">
-                <p>&nbsp;</p>
-                <p>Kesiswaan,</p>
-                <p>&nbsp;</p>
-                <span>(...........................)</span>
-            </div>
-        </div>
+        <p>{{ \Carbon\Carbon::parse($lates->created_at)->translatedFormat('d F Y') }}</p>
+        <table class="footer-table">
+            <tr>
+                <td class="signature">
+                    <p>Peserta Didik</p>
+                    <span>({{ $lates->student->name }})</span>
+                </td>
+                <td class="signature">
+                    <p>Pembimbing Siswa</p>
+                    <span>({{ $lates->student->rayon->user->name }})</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="signature">
+                    <p>Orang Tua/Wali Peserta Didik</p>
+                    <span>...........................</span>
+                </td>
+                <td class="signature">
+                    <p>Kesiswaan</p>
+                    <span>...........................</span>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
-
 </html>

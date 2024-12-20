@@ -12,7 +12,8 @@
         </div>
         <div class="d-flex align-items-end " style="gap: 15px">
             <div>
-                <h5>Admin 1</h5>
+                <h5>{{ Auth::user()->name }}</h5>
+                <small> {{ Auth::user()->email }} </small>
             </div>
             <div class="icon-container" style="border: 2px solid #133">
                 <i class="fa fa-user" style="color: #133E87;"></i>
@@ -47,6 +48,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Card Admin -->
                 <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card shadow d-flex flex-row justify-content-between align-items-center p-5" style="min-height:140px">
@@ -73,7 +75,6 @@
                         </div>
                     </div>
                 </div>
-    
                 
                 <!-- Card Pembimbing Siswa -->
                 <div class="col-md-6 col-lg-6 mb-3">
@@ -90,6 +91,4 @@
             </div>
         </section>
     </div>
-    
-    
 @endsection

@@ -20,7 +20,15 @@ use App\Models\Student;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', function() {
+    return view('login');
+})->name('login');
+
+Route::post('/login', [UserController::class, 'loginAuth'])->name('login.auth');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::prefix('/rombel')->name('rombel.')->group(function(){
     Route::get('/', [RombelController::class, 'index'])->name('index');
@@ -65,4 +73,5 @@ Route::prefix('/late')->name('late.')->group(function() {
     Route::get('/show/{id}', [LateController::class, 'show'])->name('show');
     Route::delete('/delete/{id}', [LateController::class, 'destroy'])->name('delete');
     Route::get('/download/{id}', [LateController::class, 'downloadPDF'])->name('download');
+    Route::get('/export/excel', [LateController::class, 'exportExcel'])->name('export-excel');
 });

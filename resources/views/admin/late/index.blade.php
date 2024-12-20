@@ -21,16 +21,21 @@
             </div>
             <a class="btn-prior" href=" {{ route('late.create') }} ">Tambah +</a>
         </div>
-        <form method="GET" action="" class="d-flex align-items-center mb-3" style="gap: 15px">
-            <label for="perPage" class="form-label">Tampilkan</label>
-            <select name="perPage" id="perPage" class="form-select" style="width: auto" onchange="this.form.submit()">
-                <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
-                <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
-                <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
-                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
-            </select>
-            <input type="hidden" name="search" value="{{ request('search') }}">
-        </form>
+        <div class="d-flex justify-content-between">
+            <form method="GET" action="" class="d-flex align-items-center mb-3" style="gap: 15px">
+                <label for="perPage" class="form-label">Tampilkan</label>
+                <select name="perPage" id="perPage" class="form-select" style="width: auto" onchange="this.form.submit()">
+                    <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+                    <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
+                    <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                    <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
+                </select>
+                <input type="hidden" name="search" value="{{ request('search') }}">
+            </form>
+            <button class="btn btn-success">
+                <a class="text-light" href="{{ route('late.export-excel') }}">Export (.xlsx)</a>
+            </button>
+        </div>
         @if (Session::get('success'))
             <div class="alert alert-success"> {{ Session::get('success') }} </div>
         @endif

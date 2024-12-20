@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LateExport;
 use Illuminate\Http\Request;
 use App\Models\Late;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LateController extends Controller
 {
@@ -14,24 +16,20 @@ class LateController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->input('perPage', 5);
+        $perPage = $request->input('perPage', 50);
         $search = $request->input('search');
-    
-        $late = Late::with('student')
-            ->when($search, function ($query) use ($search) {
-                return $query->whereDate('date_time_late', '=', $search);
-            })
-            ->orderBy('id', 'ASC')
-            ->paginate($perPage)
-            ->appends([
-                'search' => $search,
-                'perPage' => $perPage,
-            ]);
-    
+
+        $late = Late::with('student')->when($search, function ($query) use ($search) {
+            return $query->whereDate('date_time_late', '=', $search);
+        })->orderBy('id', 'ASC')->paginate($perPage)->appends([
+            'search' => $search,
+            'perPage' => $perPage,
+        ]);
+
         return view('admin.late.index', compact('late', 'search', 'perPage'));
     }
-    
-    
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -116,5 +114,11 @@ class LateController extends Controller
         view()->share('late', $lates);
         $pdf = Pdf::loadView('admin.late.donwload', compact('lates'));
         return $pdf->download('surat_pernyataan_' . $lates->student->nis . '.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'data_keterlambatan'.'.xlsx';
+        return Excel::download(new LateExport, $file_name);
     }
 }

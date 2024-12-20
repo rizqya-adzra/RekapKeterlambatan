@@ -34,7 +34,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label mt-3" for="">Tanggal</label>
+                <label class="form-label mt-3" for="">Tanggal dan Jam</label>
                 <input class="form-control" type="datetime-local" name="date_time_late" value="{{ $now }}">
             </div>
             <div class="form-group">

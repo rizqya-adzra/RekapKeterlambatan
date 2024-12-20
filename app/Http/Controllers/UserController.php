@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -122,4 +123,28 @@ class UserController extends Controller
             return redirect()->back()->with('failed', 'Data gagal dihapus');
         }
     }
+
+    public function loginAuth(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ],
+        );
+
+        $proses = $request->only(['email', 'password']); 
+        if (Auth::attempt($proses)) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->back()->with('failed', 'Login gagal, silahkan coba lagi');
+        }
+
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('logout', 'Anda telah Logout!');
+    }
+        
 }
