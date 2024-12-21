@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function rayon()
     {
-        return $this->belongsTo(Rayon::class);
+        return $this->belongsTo(Rayon::class, 'user_id', 'id');
     }
 
     public function late()

@@ -34,19 +34,19 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="">Rombel</label>
-                <select class="form-select" name="rombel_id[]" id="rombel_id">
+                <select class="form-select" name="rombel_id" id="rombel_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rombel as $item)
-                        <option value=" {{ $item->id }} "> {{ $item['rombel'] }} </option>
+                        <option value="{{ $item->id }}">{{ $item->rombel }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label class="form-label" for="">Rayon</label>
-                <select class="form-select" name="rayon_id[]" id="rayon_id">
+                <select class="form-select" name="rayon_id" id="rayon_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rayon as $item)
-                        <option value=" {{ $item->id }} "> {{ $item['rayon'] }} </option>
+                        <option value="{{ $item->id }}"> {{ $item->rayon }} </option>
                     @endforeach
                 </select>
             </div>

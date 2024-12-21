@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Rombel;
 use App\Models\Rayon;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -15,13 +16,24 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('perPage', 5);
+        $search = $request->get('search', '');
+        $user = Auth::user();
     
-        $search = $request->get('search', ''); 
-    
-        $student = Student::where('name', 'LIKE', '%' . $search . '%')->orderBy('name', 'ASC')->paginate($perPage);
+        if (auth()->user()->role === 'admin') {
+            $student = Student::where('name', 'LIKE', '%' . $search . '%')
+                ->orderBy('name', 'ASC')
+                ->paginate($perPage);
+        } else {
+            $rayon = Rayon::where('user_id', $user->id)->first();
+            $student = Student::where('rayon_id', $rayon->id)
+                ->where('name', 'LIKE', '%' . $search . '%')
+                ->orderBy('name', 'ASC')
+                ->paginate($perPage);
+        }
     
         return view('admin.student.index', compact('student', 'perPage', 'search'));
     }
+    
     
 
     /**
@@ -31,7 +43,6 @@ class StudentController extends Controller
     {
         $rombel = Rombel::all();
         $rayon = Rayon::all();
-        $items = $rombel->merge($rayon);
         return view('admin.student.create', compact('rombel', 'rayon'));
     }
 

@@ -21,7 +21,9 @@
                 <button class="btn btn-outline-secondary" type="submit">Clear</button>
             </form>
         </div>
+        @if (Auth::user()->role === 'admin')
         <a class="btn-prior" href=" {{route('student.create')}} ">Tambah +</a>
+        @endif
     </div>
     <form method="GET" action="" class="d-flex align-items-center mb-3" style="gap: 15px">
         <label for="perPage" class="form-label">Tampilkan</label>
@@ -44,7 +46,9 @@
                     <th>Nama</th>
                     <th>Rombel</th>
                     <th>Rayon</th>
+                    @if (Auth::user()->role === 'admin')
                     <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -55,10 +59,12 @@
                     <td> {{ $item->name }} </td>
                     <td> {{ $item->rombel->rombel }} </td>
                     <td> {{ $item->rayon->rayon }} </td>
+                    @if (Auth::user()->role === 'admin')
                     <td>
                         <a class="btn-edit" href="{{ route('student.edit', $item['id']) }}">Edit</a>
                         <button class="btn-delete" onclick="deleteModal('{{ $item->id }}', '{{ $item->name }}')">Hapus</button>
                     </td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

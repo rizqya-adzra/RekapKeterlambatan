@@ -33,7 +33,7 @@
                 <select class="form-select" name="user_id" id="user">
                     <option selected disabled hidden value=""></option>
                     @foreach ($user as $item)
-                        <option value=" {{ $item->id }} "> {{ $item['name'] }} </option>
+                        <option value=" {{ $item->id }} "> {{ $item->name }} </option>
                     @endforeach
                 </select>
             </div>

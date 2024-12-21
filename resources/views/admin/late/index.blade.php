@@ -77,7 +77,6 @@
                                         src="{{ asset('storage/' . $item['bukti']) }}" alt="Bukti">
                                 </td>
                                 <td>
-                                    <a class="btn-edit" href="{{ route('rayon.edit', $item->id) }}">Edit</a>
                                     <button class="btn-delete"
                                         onclick="deleteModal('{{ $item->id }}', '{{ $item->student->name }}')">Hapus</button>
                                 </td>

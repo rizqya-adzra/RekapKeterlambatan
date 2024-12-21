@@ -146,5 +146,15 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login')->with('logout', 'Anda telah Logout!');
     }
+    
+    public function resetPassword($id)
+    {
+        $user = User::findOrFail($id);
+
+        $newPassword = substr($user->email, 0, 5); 
+        $user->update(['password' => Hash::make($newPassword)]);
+
+        return redirect()->route('user.index')->with('success', 'Password berhasil direset menjadi: ' . $newPassword);
+    }
         
 }

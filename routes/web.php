@@ -55,6 +55,7 @@ Route::prefix('/user')->name('user.')->group(function() {
     Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
     Route::patch('/update/{id}', [UserController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('delete');
+    Route::post('/user/reset-password/{id}', [UserController::class, 'resetPassword'])->name('reset');
 });
 
 Route::prefix('/student')->name('student.')->group(function() {

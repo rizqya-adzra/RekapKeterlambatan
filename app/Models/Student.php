@@ -15,11 +15,6 @@ class Student extends Model
         'rayon_id',
     ];
     
-    protected $casts = [
-        'rombel_id' => 'array',
-        'rayon_id' => 'array'
-    ];
-
     public function rombel()
     {
         return $this->belongsTo(Rombel::class, 'rombel_id', 'id');

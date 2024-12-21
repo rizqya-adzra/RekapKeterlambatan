@@ -3,12 +3,15 @@
 namespace App\Exports;
 
 use App\Models\Late;
+use App\Models\Student;
+use App\Models\Rayon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Facades\Auth;
 
 class LateExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithTitle
 {
@@ -17,6 +20,16 @@ class LateExport implements FromCollection, WithHeadings, WithMapping, WithStyle
      */
     public function collection()
     {
+        $user = Auth::user();
+        
+        if ($user->role === 'ps') {
+            $rayon = Rayon::where('user_id', $user->id)->first();
+            
+            $studentsInRayon = Student::where('rayon_id', $rayon->id)->pluck('id')->toArray();
+            
+            return Late::whereIn('student_id', $studentsInRayon)->select('student_id')->distinct()->get();
+        }
+
         return Late::select('student_id')->distinct()->get();
     }
 
@@ -43,7 +56,6 @@ class LateExport implements FromCollection, WithHeadings, WithMapping, WithStyle
 
     public function styles(Worksheet $sheet)
     {
-        // Styling header
         $sheet->getStyle('A1:E1')->applyFromArray([
             'font' => [
                 'bold' => true,

@@ -7,6 +7,8 @@
     <script href="main.js"></script>
 @endpush
 <header>
+    @if (Auth::check())
+
     <div class="nav1" id="navbar">
         <nav class="nav1__container">
             <div>
@@ -17,14 +19,15 @@
 
                 <div class="nav1__list">
                     <div class="nav1__items">
-                        <h3 class="nav1__subtitle">Profile</h3>
-
+                        <h3 class="nav1__subtitle">Semua Data</h3>
+                            
                         <a href="{{ route('dashboard') }}"
-                            class="nav1__link {{ Route::is('dashboard') ? 'active' : '' }}">
-                            <i class='bx bx-home nav1__icon'></i>
-                            <span class="nav1__name">Dashboard</span>
-                        </a>
-
+                        class="nav1__link {{ Route::is('dashboard') ? 'active' : '' }}">
+                        <i class='bx bx-home nav1__icon'></i>
+                        <span class="nav1__name">Dashboard</span>
+                    </a>
+                    
+                    @if (Auth::user()->role === 'admin')                            
                         <div class="nav1__dropdown">
                             <a href="#" class="nav1__link">
                                 <i class='bx bx-user nav1__icon'></i>
@@ -49,9 +52,17 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <div class="nav1__dropdown">
+                            <a href="{{ route('student.index') }}" class="nav1__link">
+                                <i class='bx bx-user nav1__icon'></i>
+                                <span class="nav1__name">Data Siswa</span>
+                            </a>
+                        </div>
+                        @endif
 
                         <a href="{{ route('late.index') }}" class="nav1__link">
-                            <i class='bx bx-message-rounded nav1__icon'></i>
+                            <i class='bx bx-folder nav1__icon'></i>
                             <span class="nav1__name">Keterlambatan</span>
                         </a>
                     </div>
@@ -65,6 +76,8 @@
                 </a>
         </nav>
     </div>
+    @endif
+
 </header>
 <div class="container content">
     @yield('konten-dinamis')

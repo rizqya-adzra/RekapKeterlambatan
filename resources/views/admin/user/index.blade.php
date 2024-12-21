@@ -42,6 +42,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Reset Password</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -52,6 +53,12 @@
                         <td> {{ $item['name'] }} </td>
                         <td> {{ $item['email'] }} </td>
                         <td> {{ $item['role'] }} </td>
+                        <td> 
+                            <form action="{{ route('user.reset', $item->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn-delete btn-sm">Reset Password</button>
+                            </form>
+                        </td>
                         <td>
                             <a class="btn-edit" href="{{ route('user.edit', ['id' => $item->id]) }}">Edit</a>
                             <button class="btn-delete"
