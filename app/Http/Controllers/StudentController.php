@@ -102,37 +102,18 @@ class StudentController extends Controller
             'rombel_id' => 'required',
             'rayon_id' => 'required',
         ]);
-
-        $rombel = $request->rombel_id;
-        $rayon = $request->rayon_id;
-
-        foreach($rombel as $key)
-        $rombelFormat = Rombel::find($key);
-    
-        foreach($rayon as $key)
-        $rayonFormat = Rayon::find($key);
-
-        $afterRombel = [
-            "id" => $key,
-            "name_rombel" => $rombelFormat['rombel'],
-        ];
-
-        $afterRayon = [
-            "id" => $key,
-            "name_rayon" => $rayonFormat['rayon'],
-        ];
         
-        $proses = Student::where('id', $id)->update([
+        $student = Student::where('id', $id)->update([
             'nis' => $request->nis,
             'name' => $request->name,
-            'rombel_id' => $afterRombel,
-            'rayon_id' => $afterRayon,
+            'rombel_id' => $request->rombel_id,
+            'rayon_id' => $request->rayon_id,
         ]);
 
-        if ($proses) {
-            return redirect()->route('student.index')->with('success', 'Berhasil Mengubah Data Siswa!');
+        if($student) {
+            return redirect()->route('student.index')->with('success', 'Data Siswa derhasil diubah!');
         } else {
-            return redirect()->back()->with('failed', 'Gagal Mengubah Data Siswa!');
+            return redirect()->back()->with('failed', 'Data gagal diubah');
         }
     }
 

@@ -39,6 +39,43 @@
   }
 }
 
+/* Styling elemen select yang digunakan oleh Select2 */
+.select2-selection {
+  height: 38px !important; /* Sesuaikan tinggi dengan form Bootstrap */
+  border: 1px solid #ced4da; /* Border yang serupa dengan form Bootstrap */
+  border-radius: .25rem; /* Sesuaikan border-radius dengan Bootstrap */
+  font-size: 1rem; /* Ukuran font agar konsisten dengan form Bootstrap */
+  padding: 5px; /* Padding serupa dengan elemen form Bootstrap */
+  box-shadow: none; /* Menghapus shadow bawaan dari Select2 */
+}
+
+/* Posisi teks yang dipilih di dalam Select2 */
+.select2-selection__rendered {
+  line-height: 1.5; /* Menyesuaikan jarak teks dengan tinggi elemen */
+}
+
+/* Styling tombol clear (hapus pilihan) pada Select2 */
+.select2-selection__clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d; /* Warna icon clear sesuai dengan warna default */
+}
+
+/* Styling dropdown select2 */
+.select2-dropdown {
+  border: 1px solid #e3e4e6; /* Border dropdown serupa dengan elemen form */
+  border-radius: .25rem; /* Border radius untuk dropdown */
+  font-size: 1rem; /* Ukuran font dropdown */
+}
+
+/* Styling untuk highlight pilihan pada dropdown */
+.select2-results__option--highlighted {
+  background-color: #608BC1; /* Warna background ketika opsi dipilih */
+  color: white; /* Warna teks yang dipilih */
+}
+
 .card-1 {
     display: flex;
     justify-content: center;

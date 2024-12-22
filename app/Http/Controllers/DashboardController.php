@@ -20,30 +20,57 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        $students = 0;
+        $lateCount = 0;
+        $lateToday = 0;
+        $lateThisWeek = 0;
+        $lateThisMonth = 0;
+        $lateThisYear = 0;
+        $student = 0;
+        $pembimbing = null;
+
         if ($user->role === 'admin') {
-            $students = 0;
-            $lateCount = 0;
+            $lateToday = Late::whereDate('date_time_late', today())->count();
+            $lateThisWeek = Late::whereBetween('date_time_late', [now()->startOfWeek(), now()->endOfWeek()])->count();
+            $lateThisMonth = Late::whereBetween('date_time_late', [now()->startOfMonth(), now()->endOfMonth()])->count();
+            $lateThisYear = Late::whereBetween('date_time_late', [now()->startOfYear(), now()->endOfYear()])->count();
+
+            $student = Student::count();
         } else {
             $rayon = Rayon::where('user_id', $user->id)->first();
 
-            $students = Student::where('rayon_id', $rayon->id)->count();
+            if ($rayon) {
+                $students = Student::where('rayon_id', $rayon->id)->count();
 
-            $lateCount = Late::whereHas('student', function ($query) use ($rayon) {
-                $query->where('rayon_id', $rayon->id);
-            })->whereDate('created_at', today())->count();
-            
+                $lateCount = Late::whereHas('student', function ($query) use ($rayon) {
+                    $query->where('rayon_id', $rayon->id);
+                })->whereDate('date_time_late', today())->count();
+
+                $pembimbing = $rayon;
+            }
         }
 
-        $student = Student::count();
         $rayonCount = Rayon::count();
         $rombel = Rombel::count();
         $rayon = Rayon::count();
         $admin = User::where('role', 'admin')->count();
         $ps = User::where('role', 'ps')->count();
 
-        $pembimbing = Rayon::where('user_id', $user->id)->first();
-
-        return view('admin.dashboard', compact('student', 'ps', 'admin', 'rayonCount', 'rombel', 'rayon', 'students', 'pembimbing', 'lateCount'));
+        return view('admin.dashboard', compact(
+            'ps',
+            'admin',
+            'rayonCount',
+            'rombel',
+            'rayon',
+            'students',
+            'pembimbing',
+            'lateCount',
+            'lateToday',
+            'lateThisWeek',
+            'lateThisMonth',
+            'lateThisYear',
+            'student'
+        ));
     }
 
     /**

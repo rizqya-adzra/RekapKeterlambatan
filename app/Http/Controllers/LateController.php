@@ -27,7 +27,7 @@ class LateController extends Controller
                 ->when($search, function ($query) use ($search) {
                     return $query->whereDate('date_time_late', '=', $search);
                 })
-                ->orderBy('id', 'ASC')
+                ->orderBy('date_time_late', 'DESC')
                 ->paginate($perPage)
                 ->appends([
                     'search' => $search,

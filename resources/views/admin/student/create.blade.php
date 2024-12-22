@@ -26,11 +26,11 @@
             @csrf
             <div class="form-group">
                 <label class="form-label" for="">NIS</label>
-                <input class="form-control" type="text" name="nis">
+                <input class="form-control" type="text" name="nis" placeholder="Masukan NIS">
             </div>
             <div class="form-group">
                 <label class="form-label" for="">Nama</label>
-                <input class="form-control" type="text" name="name">
+                <input class="form-control" type="text" name="name" placeholder="Masukan Nama">
             </div>
             <div class="form-group">
                 <label class="form-label" for="">Rombel</label>
@@ -54,3 +54,21 @@
         </form>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#rombel_id').select2({
+                placeholder: "Pilih Rombel",
+                allowClear: true
+            });
+        });
+
+        $(document).ready(function() {
+            $('#rayon_id').select2({
+                placeholder: "Pilih Rayon",
+                allowClear: true
+            });
+        });
+    </script>
+@endpush

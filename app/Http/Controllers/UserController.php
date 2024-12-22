@@ -134,7 +134,8 @@ class UserController extends Controller
 
         $proses = $request->only(['email', 'password']); 
         if (Auth::attempt($proses)) {
-            return redirect()->route('dashboard');
+            $user = Auth::user();
+            return redirect()->route('dashboard')->with('success', 'Selamat Datang, '. $user->name . ' !' );
         } else {
             return redirect()->back()->with('failed', 'Login gagal, silahkan coba lagi');
         }

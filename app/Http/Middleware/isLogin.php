@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class isLogin
@@ -15,6 +16,12 @@ class isLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::check()) {
+            return $next($request);
+        } else if ($request->routeIs('login')) {
+            return $next($request);
+        } else {
+            return redirect()->route('login')->with('failed', 'Silahkan Login terlebih dahulu!');
+        }
     }
 }

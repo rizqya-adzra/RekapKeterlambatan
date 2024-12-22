@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label mt-3" for="">Keterangan Keterlambatan</label>
-                <input class="form-control" type="text" name="information">
+                <input class="form-control" type="text" name="information" placeholder="Tambah Keterangan">
             </div>
             <div class="form-group">
                 <label class="form-label mt-3" for="">Bukti</label>
@@ -73,6 +73,13 @@
             } else {
                 preview.style.display = 'none';
             }
+        });
+        
+        $(document).ready(function() {
+            $('#student').select2({
+                placeholder: "Pilih Nama Siswa",
+                allowClear: true 
+            });
         });
     </script>
 @endpush

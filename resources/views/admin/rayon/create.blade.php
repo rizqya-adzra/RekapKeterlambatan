@@ -7,11 +7,11 @@
                 <h1 class="text-prior">Tambah Data Rayon</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                      <li class="breadcrumb-item active"><a href="{{ route('rayon.index') }}">Rayon</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Create</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('rayon.index') }}">Rayon</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create</li>
                     </ol>
-                  </nav>
+                </nav>
             </div>
             <a class="btn btn-outline-secondary p-2" href="{{ route('rayon.index') }}"><i class="fa fa-arrow-left"
                     aria-hidden="true"></i> Back</a>
@@ -26,7 +26,7 @@
             @csrf
             <div class="form-group">
                 <label class="form-label" for="">Rayon</label>
-                <input class="form-control" type="text" name="rayon">
+                <input class="form-control" type="text" name="rayon" placeholder="Masukan Rayon">
             </div>
             <div class="form-group">
                 <label class="form-label" for="">Pembimbing Siswa</label>
@@ -41,3 +41,14 @@
         </form>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#user').select2({
+                placeholder: "Pilih Pembimbing Siswa",
+                allowClear: true
+            });
+        });
+    </script>
+@endpush

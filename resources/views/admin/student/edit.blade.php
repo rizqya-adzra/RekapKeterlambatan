@@ -41,10 +41,10 @@
                 @error('rombel_id')
                     <small class="text-danger"> {{ $message }} </small>
                 @enderror
-                <select class="form-select" name="rombel_id[]" id="rombel_id">
+                <select class="form-select" name="rombel_id" id="rombel_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rombel as $item)
-                        <option value=" {{ $item['id'] }} " {{ old('rombel', $student->rombel->id) == $item->id ? 'selected' : '' }}> {{ $item['rombel'] }} </option>
+                        <option value=" {{ $item->id }} " {{ old('rombel', $student->rombel->id) == $item->id ? 'selected' : '' }}> {{ $item['rombel'] }} </option>
                     @endforeach
                 </select>
             </div>
@@ -53,10 +53,10 @@
                 @error('rayon_id')
                     <small class="text-danger"> {{ $message }} </small>
                 @enderror
-                <select class="form-select" name="rayon_id[]" id="rayon_id">
+                <select class="form-select" name="rayon_id" id="rayon_id">
                     <option selected disabled hidden value=""></option>
                     @foreach ($rayon as $item)
-                        <option value=" {{ $item['id']  }} " {{ old('rayon', $student->rayon->id) == $item->id ? 'selected' : '' }}> {{ $item['rayon'] }} </option>
+                        <option value=" {{ $item->id  }} " {{ old('rayon', $student->rayon->id) == $item->id ? 'selected' : '' }}> {{ $item['rayon'] }} </option>
                     @endforeach
                 </select>
             </div>
@@ -64,3 +64,21 @@
         </form>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#rombel_id').select2({
+                placeholder: "Pilih Rombel",
+                allowClear: true
+            });
+        });
+
+        $(document).ready(function() {
+            $('#rayon_id').select2({
+                placeholder: "Pilih Rayon",
+                allowClear: true
+            });
+        });
+    </script>
+@endpush

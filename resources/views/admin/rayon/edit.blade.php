@@ -45,3 +45,14 @@
         </form>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#user').select2({
+                placeholder: "Pilih Pembimbing Siswa",
+                allowClear: true
+            });
+        });
+    </script>
+@endpush

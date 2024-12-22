@@ -32,12 +32,15 @@
                 </select>
                 <input type="hidden" name="search" value="{{ request('search') }}">
             </form>
-            <button class="btn btn-success">
+            <button class="btn btn-success mb-3">
                 <a class="text-light" href="{{ route('late.export-excel') }}">Export (.xlsx)</a>
             </button>
         </div>
         @if (Session::get('success'))
             <div class="alert alert-success"> {{ Session::get('success') }} </div>
+        @endif
+        @if (Session::get('failed'))
+            <div class="alert alert-danger"> {{ Session::get('failed') }} </div>
         @endif
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -60,7 +63,9 @@
                             <th>Tanggal</th>
                             <th>Keterangan</th>
                             <th>Bukti</th>
+                            @if (Auth::user()->role === 'admin')
                             <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -76,10 +81,13 @@
                                     <img class="object-fit-fill border rounded" style="width: 150px"
                                         src="{{ asset('storage/' . $item['bukti']) }}" alt="Bukti">
                                 </td>
+                                @if (Auth::user()->role === 'admin')
+                                    
                                 <td>
                                     <button class="btn-delete"
-                                        onclick="deleteModal('{{ $item->id }}', '{{ $item->student->name }}')">Hapus</button>
+                                    onclick="deleteModal('{{ $item->id }}', '{{ $item->student->name }}')">Hapus</button>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -116,7 +124,7 @@
                                     <td><a href="{{ route('late.show', $lateness->first()->student_id) }}"> Lihat </a></td>
                                     <td>
                                         @if ($lateness->count() >= 3)
-                                            <a class="btn btn-primary"
+                                            <a class="btn btn-danger"
                                                 href="{{ route('late.download', $lateness->first()->id) }}"> Cetak Surat
                                                 Pernyataan </a>
                                         @endif
@@ -128,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-3">
+        <div class="mt-3 mb-5">
             {{ $late->appends(request()->only(['perPage', 'search']))->links() }}
         </div>
              
@@ -141,7 +149,7 @@
                 @method('DELETE')
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus data Akun</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus data Keterlambatan</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
